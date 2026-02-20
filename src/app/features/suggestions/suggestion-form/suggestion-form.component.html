@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <div class="card p-4" style="max-width: 700px; margin: auto;">
+    
+    <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()">
+
+      <!-- Titre -->
+      <div class="mb-3">
+        <label class="form-label text-primary">Titre :</label>
+        <input type="text" class="form-control" formControlName="title"
+               [ngClass]="{'is-invalid': title?.invalid && title?.touched}">
+        <div class="invalid-feedback" *ngIf="title?.touched">
+          <span *ngIf="title?.errors?.['required']">Le titre est obligatoire.</span>
+          <span *ngIf="title?.errors?.['minlength']">Le titre doit contenir au moins 5 caractères.</span>
+          <span *ngIf="title?.errors?.['pattern']">Le titre doit commencer par une majuscule et ne contenir que des lettres.</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label text-primary">Description :</label>
+        <textarea class="form-control" formControlName="description" rows="3"
+                  [ngClass]="{'is-invalid': description?.invalid && description?.touched}">
+        </textarea>
+        <div class="invalid-feedback" *ngIf="description?.touched">
+          <span *ngIf="description?.errors?.['required']">La description est obligatoire.</span>
+          <span *ngIf="description?.errors?.['minlength']">La description doit contenir au minimum 30 caractères.</span>
+        </div>
+      </div>
+
+      <!-- Catégorie -->
+      <div class="mb-3">
+        <label class="form-label text-primary">Catégorie :</label>
+        <select class="form-select" formControlName="category"
+                [ngClass]="{'is-invalid': category?.invalid && category?.touched}">
+          <option value="">-- Sélectionnez une catégorie --</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="category?.touched">
+          <span *ngIf="category?.errors?.['required']">La catégorie est obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Date (readonly) -->
+      <div class="mb-3">
+        <label class="form-label text-primary">Date :</label>
+        <input type="text" class="form-control" formControlName="date">
+      </div>
+
+      <!-- Status (readonly) -->
+      <div class="mb-3">
+        <label class="form-label text-primary">Status :</label>
+        <input type="text" class="form-control" formControlName="status">
+      </div>
+
+      <!-- Bouton Soumettre -->
+      <button type="submit" class="btn btn-primary"
+              [disabled]="suggestionForm.invalid">
+        Soumettre
+      </button>
+
+      <button type="button" class="btn btn-secondary ms-2"
+              [routerLink]="['/suggestions']">
+        Annuler
+      </button>
+
+    </form>
+  </div>
+</div>
