@@ -9,7 +9,6 @@ import { ListSuggestionComponent } from './list-suggestion/list-suggestion.compo
 import { SuggestionDetailsComponent } from './suggestion-details/suggestion-details.component';
 import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
 
-
 @NgModule({
   declarations: [
     SuggestionsComponent,
@@ -18,10 +17,10 @@ import { SuggestionFormComponent } from './suggestion-form/suggestion-form.compo
     SuggestionFormComponent
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    CommonModule,        // ← fixes *ngIf, *ngFor, ngClass
+    FormsModule,         // ← fixes ngModel
+    ReactiveFormsModule, // ← fixes formGroup, formControlName
+    RouterModule,        // ← fixes routerLink
     SuggestionsRoutingModule
   ]
 })

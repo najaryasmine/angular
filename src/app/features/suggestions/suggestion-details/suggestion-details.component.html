@@ -4,42 +4,22 @@
       <h2>{{ suggestion.title }}</h2>
       <span [ngClass]="getStatusClass()">{{ suggestion.status }}</span>
     </div>
-    
     <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <p><strong>📁 Catégorie :</strong> {{ suggestion.category }}</p>
-        </div>
-        <div class="col-md-6">
-          <p><strong>📅 Date :</strong> {{ suggestion.date | date:'dd/MM/yyyy' }}</p>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <h5>Description :</h5>
-        <p class="text-muted">{{ suggestion.description }}</p>
-      </div>
-      
-      <div class="mb-3">
-        <p><strong>👍 Likes :</strong> <span class="badge bg-info">{{ suggestion.nbLikes }}</span></p>
-      </div>
+      <p><strong>📁 Catégorie :</strong> {{ suggestion.category }}</p>
+      <p><strong>📅 Date :</strong> {{ suggestion.date | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Description :</strong> {{ suggestion.description }}</p>
+      <p><strong>👍 Likes :</strong> <span class="badge bg-info">{{ suggestion.nbLikes }}</span></p>
     </div>
-    
-    <div class="card-footer">
-      <button class="btn btn-secondary" (click)="backToList()">
-        ← Retour à la liste
-      </button>
+    <div class="card-footer d-flex gap-2">
+      <button class="btn btn-secondary" (click)="backToList()">← Retour à la liste</button>
+      <button class="btn btn-warning" (click)="goToUpdate()">✏️ Update</button>
     </div>
   </div>
 </div>
 
-<!-- Message si la suggestion n'existe pas -->
 <div class="container mt-4" *ngIf="!suggestion">
   <div class="alert alert-warning">
     <h4>⚠️ Suggestion non trouvée</h4>
-    <p>La suggestion avec l'ID {{ suggestionId }} n'existe pas.</p>
-    <button class="btn btn-primary" (click)="backToList()">
-      Retour à la liste
-    </button>
+    <button class="btn btn-primary" (click)="backToList()">Retour à la liste</button>
   </div>
 </div>

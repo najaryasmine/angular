@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Suggestion } from '../../../models/suggestion';
-import { SuggestionService } from '../suggestion.service';
+import { SuggestionService } from '../../../core/services/suggestion.service';
 
 @Component({
   selector: 'app-list-suggestion',
@@ -15,7 +15,9 @@ export class ListSuggestionComponent implements OnInit {
   constructor(private suggestionService: SuggestionService) {}
 
   ngOnInit(): void {
-    this.suggestions = this.suggestionService.getAll();
+    this.suggestionService.getSuggestionsList().subscribe(data => {
+      this.suggestions = data;
+    });
   }
 
   get filteredSuggestions(): Suggestion[] {
@@ -27,8 +29,16 @@ export class ListSuggestionComponent implements OnInit {
     );
   }
 
-  like(suggestion: Suggestion): void {
-    suggestion.nbLikes++;
+ like(suggestion: Suggestion): void {
+  this.suggestionService.updateLikes(suggestion.id).subscribe(() => {
+    suggestion.nbLikes++;  
+  });
+}
+
+  deleteSuggestion(id: number): void {
+    this.suggestionService.deleteSuggestion(id).subscribe(() => {
+      this.suggestions = this.suggestions.filter(s => s.id !== id);
+    });
   }
 
   addToFavorites(suggestion: Suggestion): void {

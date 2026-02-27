@@ -6,22 +6,18 @@
     </button>
   </div>
 
-  <!-- Barre de recherche -->
   <div class="mb-4">
-    <input 
-      type="text" 
-      class="form-control" 
-      placeholder="Rechercher par titre ou catégorie..." 
-      [(ngModel)]="searchText">
+    <input type="text" class="form-control"
+           placeholder="Rechercher par titre ou catégorie..."
+           [(ngModel)]="searchText">
   </div>
 
-  <!-- Liste des suggestions -->
   <div class="row">
     <div class="col-md-6 mb-3" *ngFor="let suggestion of filteredSuggestions">
       <div class="card h-100">
         <div class="card-header">
           <h5>{{ suggestion.title }}</h5>
-          <span class="badge" 
+          <span class="badge"
                 [ngClass]="{
                   'bg-success': suggestion.status === 'acceptee',
                   'bg-danger': suggestion.status === 'refusee',
@@ -36,22 +32,27 @@
           <p><strong>Date :</strong> {{ suggestion.date | date:'dd/MM/yyyy' }}</p>
           <p><strong>Likes :</strong> {{ suggestion.nbLikes }}</p>
         </div>
-        <div class="card-footer">
-          <button class="btn btn-primary btn-sm me-2" (click)="like(suggestion)" *ngIf="showButtons(suggestion)">
+        <div class="card-footer d-flex flex-wrap gap-2">
+          <button class="btn btn-primary btn-sm" (click)="like(suggestion)"
+                  *ngIf="showButtons(suggestion)">
             👍 Like
           </button>
-          <button class="btn btn-warning btn-sm me-2" (click)="addToFavorites(suggestion)" *ngIf="showButtons(suggestion)">
-            ⭐ Ajouter aux favoris
+          <button class="btn btn-warning btn-sm" (click)="addToFavorites(suggestion)"
+                  *ngIf="showButtons(suggestion)">
+            ⭐ Favoris
           </button>
-          <button class="btn btn-info btn-sm" [routerLink]="['/suggestions', suggestion.id]">
+          <button class="btn btn-info btn-sm"
+                  [routerLink]="['/suggestions', suggestion.id]">
             📄 Détails
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteSuggestion(suggestion.id)">
+            🗑️ Supprimer
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Section Favoris -->
   <div class="mt-5" *ngIf="favorites.length > 0">
     <h3>Mes Favoris ({{ favorites.length }})</h3>
     <ul class="list-group">
